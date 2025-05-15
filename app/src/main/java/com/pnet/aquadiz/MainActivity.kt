@@ -8,6 +8,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.pnet.aquadiz.menu.AppMenu
+import com.pnet.aquadiz.menu.Navigation
 import com.pnet.aquadiz.ui.theme.AquadizTheme
 
 class MainActivity : ComponentActivity() {

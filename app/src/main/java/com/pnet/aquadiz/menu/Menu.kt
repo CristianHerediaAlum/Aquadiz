@@ -1,11 +1,9 @@
-package com.pnet.aquadiz
+package com.pnet.aquadiz.menu
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
