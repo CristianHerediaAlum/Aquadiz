@@ -6,12 +6,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.pnet.aquadiz.screens.HomeScreen
+import com.pnet.aquadiz.screens.ReservasScreen
 import com.pnet.aquadiz.screens.SalasScreen
 
 @Composable
 fun Navigation(navController: NavHostController, modifier: Modifier) {
     NavHost(navController, startDestination = "home", modifier = modifier) {
         composable("home") { HomeScreen(navController) }
+        composable("reservas"){ ReservasScreen() }
         composable("salas") { SalasScreen() }
     }
 }

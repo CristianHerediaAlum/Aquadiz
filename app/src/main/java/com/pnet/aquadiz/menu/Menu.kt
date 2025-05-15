@@ -29,6 +29,13 @@ fun AppMenu(navController: NavController) {
                     }
                 )
                 DropdownMenuItem(
+                    text = { Text("Reservas") },
+                    onClick = {
+                        navController.navigate("reservas")
+                        expanded = false
+                    }
+                )
+                DropdownMenuItem(
                     text = { Text("Inicio") },
                     onClick = {
                         navController.navigate("home")
