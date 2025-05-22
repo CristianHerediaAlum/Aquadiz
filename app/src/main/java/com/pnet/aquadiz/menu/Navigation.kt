@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.pnet.aquadiz.modules.ReservaViewModel
 import com.pnet.aquadiz.screens.HomeScreen
 import com.pnet.aquadiz.screens.ReservasScreen
 import com.pnet.aquadiz.screens.SalasScreen
@@ -13,7 +14,7 @@ import com.pnet.aquadiz.screens.SalasScreen
 fun Navigation(navController: NavHostController, modifier: Modifier) {
     NavHost(navController, startDestination = "home", modifier = modifier) {
         composable("home") { HomeScreen(navController) }
-        composable("reservas"){ ReservasScreen() }
+        composable("reservas") { ReservasScreen(navController) }
         composable("salas") { SalasScreen() }
     }
 }

@@ -86,15 +86,22 @@ class ReservaViewModel : ViewModel(){
         }
     }
     // DELETE
-    fun eliminarReserva(id: Int) {
+    fun eliminarReserva(
+        id: Int,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
         viewModelScope.launch {
             try {
                 api.deleteReserva(id)
                 message = "Eliminado ID: $id"
                 obtenerReservas()
+                onSuccess()
             } catch (e: Exception) {
                 Log.e("ReservaViewModel", "Error al ELIMINAR Reserva", e)
+                onError()
             }
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.pnet.aquadiz
+package com.pnet.aquadiz.operaciones
 
 import android.content.Context
 import android.graphics.Paint
