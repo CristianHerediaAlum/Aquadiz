@@ -47,11 +47,11 @@ fun ReservasScreen(
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Button(onClick = {
-                                navController.navigate("verReserva/${reserva.id}")
-                            }) {
-                                Text("Ver")
-                            }
+//                            Button(onClick = {
+//                                navController.navigate("verReserva/${reserva.id}")
+//                            }) {
+//                                Text("Ver")
+//                            }
 
                             Button(onClick = {
                                 viewModel.eliminarReserva(reserva.id,

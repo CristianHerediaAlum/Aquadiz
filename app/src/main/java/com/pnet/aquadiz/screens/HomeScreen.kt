@@ -17,11 +17,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.ui.text.font.FontWeight
 import com.pnet.aquadiz.R
+import com.pnet.aquadiz.ui.theme.azulClaro
+import com.pnet.aquadiz.ui.theme.azulOscuro
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    val azulClaro = Color(0xFFEBFFFF) // azul claro
-    val azulOscuro = Color(0xFFA6E1F3) // azul oscuro
+//    val azulClaro = Color(0xFFEBFFFF) // azul claro
+//    val azulOscuro = Color(0xFFA6E1F3) // azul oscuro
 
     Column(
         modifier = Modifier

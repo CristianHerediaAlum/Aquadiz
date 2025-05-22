@@ -10,9 +10,9 @@ import java.io.FileOutputStream
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Typeface
+import androidx.compose.runtime.Composable
 
-
-fun generarPdfSalas(context: Context, salas: List<Sala>) {
+fun generarPdfSalas(context: Context, sala: Sala) {
     val document = PdfDocument()
     val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // A4
     val page = document.startPage(pageInfo)
@@ -23,10 +23,10 @@ fun generarPdfSalas(context: Context, salas: List<Sala>) {
     }
 
     var y = 50
-    salas.forEachIndexed { index, sala ->
+//    salas.forEachIndexed { index, sala ->
         // Título de la sala
         paint.textSize = 16f
-        canvas.drawText("Sala ${index + 1}: ${sala.nombre}", 50f, y.toFloat(), paint)
+        canvas.drawText("Sala : ${sala.nombre}", 50f, y.toFloat(), paint)
         y += 25
 
         paint.textSize = 14f
@@ -35,10 +35,14 @@ fun generarPdfSalas(context: Context, salas: List<Sala>) {
         // Información básica
         canvas.drawText("Precio: ${sala.precio}", 50f, y.toFloat(), paint)
         y += 20
-        canvas.drawText("Característica 1: ${sala.caracteristica1}", 50f, y.toFloat(), paint)
-        y += 20
-        canvas.drawText("Característica 2: ${sala.caracteristica2}", 50f, y.toFloat(), paint)
-        y += 20
+        sala.caracteristicas.forEach {
+            canvas.drawText(it, 50f, y.toFloat(), paint)
+            y += 20
+        }
+//        canvas.drawText("Característica 1: ${sala.caracteristica1}", 50f, y.toFloat(), paint)
+//        y += 20
+//        canvas.drawText("Característica 2: ${sala.caracteristica2}", 50f, y.toFloat(), paint)
+//        y += 20
 
         // Imagen si existe
         sala.imagenPath?.let {
@@ -53,11 +57,16 @@ fun generarPdfSalas(context: Context, salas: List<Sala>) {
         // Tabla simulada de instalaciones
         canvas.drawText("Instalaciones:", 50f, y.toFloat(), paint)
         y += 20
-        canvas.drawText("- ${sala.instalacion1}", 70f, y.toFloat(), paint)
-        y += 20
-        canvas.drawText("- ${sala.instalacion2}", 70f, y.toFloat(), paint)
+        sala.instalaciones.forEach {
+            canvas.drawText("- $it", 70f, y.toFloat(), paint)
+            y += 20
+        }
+//        y += 20
+//        canvas.drawText("- ${sala.instalacion1}", 70f, y.toFloat(), paint)
+//        y += 20
+//        canvas.drawText("- ${sala.instalacion2}", 70f, y.toFloat(), paint)
         y += 40
-    }
+//    }
 
     document.finishPage(page)
 
