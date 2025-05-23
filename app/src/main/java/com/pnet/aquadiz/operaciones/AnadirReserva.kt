@@ -1,17 +1,25 @@
 package com.pnet.aquadiz.operaciones
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Alignment
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.pnet.aquadiz.modules.Reserva
 import com.pnet.aquadiz.modules.ReservaViewModel
 
 @Composable
-fun AñadirReservaScreen(viewModel: ReservaViewModel) {
+fun AñadirReservaScreen(navController: NavController,
+                        viewModel: ReservaViewModel = viewModel()
+) {
+    val contexto = LocalContext.current
+
     var sala by remember { mutableStateOf("") }
     var nickname by remember { mutableStateOf("") }
     var nSocio by remember { mutableStateOf("") }
@@ -39,8 +47,15 @@ fun AñadirReservaScreen(viewModel: ReservaViewModel) {
                     email = email,
                     fecha = fecha,
                     numPersonas = numPersonas.toIntOrNull() ?: 1,
-                    comentarios = comentarios
-                )
+                    comentarios = comentarios,
+                ),
+                onSuccess = {
+                    Toast.makeText(contexto, "Reserva añadida", Toast.LENGTH_SHORT).show()
+                    navController.popBackStack() // ← Esto te regresa a la pantalla anterior
+                },
+                onError = {
+                    Toast.makeText(contexto, "Error al añadir", Toast.LENGTH_SHORT).show()
+                }
             )
         }) {
             Text("Añadir Reserva")

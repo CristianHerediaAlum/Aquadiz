@@ -48,17 +48,24 @@ class ReservaViewModel : ViewModel(){
         }
     }
     //POST
-    fun agregarReserva(Reserva: Reserva) {
+    fun agregarReserva(
+        reserva: Reserva,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
         viewModelScope.launch {
             try {
-                val created = api.crearReserva(Reserva)
+                val created = api.crearReserva(reserva)
                 message = "Reserva creada"
                 obtenerReservas()
+                onSuccess() // Llamas al callback si todo va bien
             } catch (e: Exception) {
                 Log.e("ReservaViewModel", "Error al AGREGAR Reserva", e)
+                onError() // Llamas al callback si hay un error
             }
         }
     }
+
 
     // PUT
     fun editarReserva(id: Int, Reserva: Reserva) {
