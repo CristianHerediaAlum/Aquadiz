@@ -10,6 +10,7 @@ import com.pnet.aquadiz.screens.HomeScreen
 import com.pnet.aquadiz.screens.ReservasScreen
 import com.pnet.aquadiz.screens.SalasScreen
 import com.pnet.aquadiz.operaciones.AñadirReservaScreen
+import com.pnet.aquadiz.operaciones.EditarReservaScreen
 
 @Composable
 fun Navigation(navController: NavHostController, modifier: Modifier) {
@@ -18,5 +19,11 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
         composable("reservas") { ReservasScreen(navController) }
         composable("salas") { SalasScreen() }
         composable("añadirReserva") { AñadirReservaScreen(navController) }
+        composable("editarReserva/{id}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id")
+            if (id != null) {
+                EditarReservaScreen(navController, id.toInt())
+            }
+        }
     }
 }

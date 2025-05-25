@@ -68,14 +68,16 @@ class ReservaViewModel : ViewModel(){
 
 
     // PUT
-    fun editarReserva(id: Int, Reserva: Reserva) {
+    fun editarReserva(id: Int, Reserva: Reserva, onSuccess: () -> Unit, onError: () -> Unit) {
         viewModelScope.launch {
             try {
                 val mod = api.updateReserva(id, Reserva)
                 message = "Editado completamente: ${mod.id}"
                 obtenerReservas()
+                onSuccess()
             } catch (e: Exception) {
                 Log.e("ReservaViewModel", "Error al EDITAR (PUT) Reserva", e)
+                onError()
             }
         }
     }

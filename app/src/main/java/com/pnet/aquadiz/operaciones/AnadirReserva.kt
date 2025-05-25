@@ -10,6 +10,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
@@ -27,6 +29,10 @@ import com.pnet.aquadiz.modules.Reserva
 import com.pnet.aquadiz.modules.ReservaViewModel
 import com.pnet.aquadiz.ui.theme.azulClaro
 import com.pnet.aquadiz.ui.theme.azulOscuro
+import java.util.Calendar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.Icon
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,6 +40,7 @@ fun AñadirReservaScreen(navController: NavController,
                         viewModel: ReservaViewModel = viewModel()
 ) {
     val contexto = LocalContext.current
+    val calendario = Calendar.getInstance()
 
     var sala by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
@@ -138,20 +145,36 @@ fun AñadirReservaScreen(navController: NavController,
                 colors = OutlinedTextFieldDefaults.colors( unfocusedContainerColor = Color.White)
             )
 
-            Text(
-                text = "Fecha de Reserva",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black,
-                modifier = Modifier
-                    .padding(8.dp)
+            val datePicker = android.app.DatePickerDialog(
+                contexto,
+                { _, year, month, dayOfMonth ->
+                    // Formatea la fecha seleccionada (ej: 25/05/2025)
+                    fecha = "%02d/%02d/%04d".format(dayOfMonth, month + 1, year)
+                },
+                calendario.get(Calendar.YEAR),
+                calendario.get(Calendar.MONTH),
+                calendario.get(Calendar.DAY_OF_MONTH)
             )
+            Text("Fecha de Reserva", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black, modifier = Modifier.padding(8.dp))
+
             OutlinedTextField(
                 value = fecha,
-                onValueChange = { fecha = it },
-                label = { Text("Fecha") },
-                colors = OutlinedTextFieldDefaults.colors( unfocusedContainerColor = Color.White)
+                onValueChange = {}, // No permitir edición manual
+                label = { Text("Seleccionar Fecha") },
+                readOnly = true,
+                modifier = Modifier.fillMaxWidth(),
+                colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White),
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.DateRange,
+                        contentDescription = "Seleccionar fecha",
+                        modifier = Modifier.clickable {
+                            datePicker.show()
+                        }
+                    )
+                }
             )
+
             Text(
                 text = "Nº de Personas",
                 fontSize = 18.sp,

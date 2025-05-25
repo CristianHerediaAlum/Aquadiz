@@ -62,10 +62,10 @@ fun ReservasScreen(
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text("• Sala seleccionada: ${reserva.sala}")
                             Text("• Nickname: ${reserva.nickname}")
-                            Text("• Número carnet socio: ${reserva.nSocio}")
+                            Text("• Número de socio: ${reserva.nSocio}")
                             Text("• Email: ${reserva.email}")
                             Text("• Fecha: ${reserva.fecha}")
-                            Text("• Número personas: ${reserva.numPersonas}")
+                            Text("• Número de personas: ${reserva.numPersonas}")
                             Text("• Comentario: ${reserva.comentarios}")
 
                             Spacer(modifier = Modifier.height(8.dp))
