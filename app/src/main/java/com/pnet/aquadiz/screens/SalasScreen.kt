@@ -39,7 +39,7 @@ fun SalasScreen() {
             caracteristicas = listOf("Capacidad de hasta 10 personas", "Burbujas controlables para cada sección"),
             instalaciones = listOf("Agua a 30ºC", "Bar de bebidas"),
             imagenResId = R.drawable.sala_hidromasaje,
-            imagenPath = "/res/drawable/sala_hidromasaje.jpg"
+//            imagenPath = "/res/drawable/sala_hidromasaje.jpg"
         ),
         Sala(
             nombre = "Sala de baño turco",
@@ -47,7 +47,7 @@ fun SalasScreen() {
             caracteristicas = listOf("Disfruta de la sauna en solitario o acompañado", "Temperatura de 50ºC para una relajación total"),
             instalaciones = listOf("Asientos de madera de roble", "Dividido en salas comunes e individuales"),
             imagenResId =  R.drawable.bano_turco,
-            imagenPath = "/res/drawable/bano_turco.jpg"
+//            imagenPath = "/res/drawable/bano_turco.jpg"
         )
     )
 
