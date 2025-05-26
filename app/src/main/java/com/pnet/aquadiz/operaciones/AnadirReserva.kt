@@ -33,6 +33,8 @@ import java.util.Calendar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Icon
+import androidx.compose.ui.platform.testTag
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,6 +43,8 @@ fun AñadirReservaScreen(navController: NavController,
 ) {
     val contexto = LocalContext.current
     val calendario = Calendar.getInstance()
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+
 
     var sala by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
@@ -58,6 +62,7 @@ fun AñadirReservaScreen(navController: NavController,
         Column(     modifier = Modifier
             .padding(16.dp)
             .verticalScroll(rememberScrollState())) {
+            //Selector de salas
             Text(
                 text = "Sala",
                 fontSize = 18.sp,
@@ -101,6 +106,7 @@ fun AñadirReservaScreen(navController: NavController,
             }
 
             Spacer(modifier = Modifier.height(8.dp))
+            //Selector de demas campos
             Text(
                 text = "Nickname",
                 fontSize = 18.sp,
@@ -144,7 +150,7 @@ fun AñadirReservaScreen(navController: NavController,
                 label = { Text("Email") },
                 colors = OutlinedTextFieldDefaults.colors( unfocusedContainerColor = Color.White)
             )
-
+            // Manejador del DatePickerDialog para mostrar un calendario selector de fecha
             val datePicker = android.app.DatePickerDialog(
                 contexto,
                 { _, year, month, dayOfMonth ->
@@ -207,6 +213,12 @@ fun AñadirReservaScreen(navController: NavController,
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(onClick = {
+                //Comprobamos que los campos no esten vacios
+                if (sala.isBlank() || nickname.isBlank() || nSocio.isBlank() || email.isBlank() || fecha.isBlank()) {
+                    errorMessage = "Por favor, completa todos los campos obligatorios."
+                    return@Button
+                }
+                //Si no hay errores, añadimos la reserva
                 viewModel.agregarReserva(
                     Reserva(
                         id = 0, // Placeholder
@@ -220,15 +232,25 @@ fun AñadirReservaScreen(navController: NavController,
                     ),
                     onSuccess = {
                         Toast.makeText(contexto, "Reserva añadida", Toast.LENGTH_SHORT).show()
-                        navController.popBackStack() // ← Esto te regresa a la pantalla anterior
+                        navController.popBackStack()
                     },
                     onError = {
-                        Toast.makeText(contexto, "Error al añadir", Toast.LENGTH_SHORT).show()
+                        errorMessage = "Error al añadir"
                     }
                 )
             },
                 modifier = Modifier.align(Alignment.CenterHorizontally)) {
                 Text("Añadir Reserva")
+            }
+            //Si hay un error, lo mostramos
+            errorMessage?.let {
+                Text(
+                    text = it,
+                    color = Color.Red,
+                    modifier = Modifier
+                        .padding(top = 8.dp)
+                        .testTag("ErrorMessage")
+                )
             }
         }
     }

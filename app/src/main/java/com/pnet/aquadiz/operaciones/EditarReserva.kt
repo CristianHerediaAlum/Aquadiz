@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,7 +49,9 @@ fun EditarReservaScreen(
 ) {
     val contexto = LocalContext.current
     val calendario = Calendar.getInstance()
+    var errorMessage by remember { mutableStateOf<String?>(null) }
 
+    // Buscamos la reserva por su ID
     LaunchedEffect(reservaId) {
         viewModel.buscarReservaPorId(reservaId)
     }
@@ -67,6 +70,7 @@ fun EditarReservaScreen(
     var numPersonas by remember { mutableStateOf("") }
     var comentarios by remember { mutableStateOf("") }
 
+    // Actualiza los campos con los datos de la reserva
     LaunchedEffect(reserva) {
         reserva?.let {
             id = it.id.toString()
@@ -79,7 +83,7 @@ fun EditarReservaScreen(
             comentarios = it.comentarios
         }
     }
-
+    // Le damos color al fondo
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.LightGray
@@ -89,6 +93,7 @@ fun EditarReservaScreen(
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
+            // Selector de salas
             Text(
                 text = "Sala",
                 fontSize = 18.sp,
@@ -207,6 +212,12 @@ fun EditarReservaScreen(
             // Botón
             Button(
                 onClick = {
+                    //Comprobamos que los campos no esten vacios
+                    if (sala.isBlank() || nickname.isBlank() || nSocio.isBlank() || email.isBlank() || fecha.isBlank()) {
+                        errorMessage = "Por favor, completa todos los campos obligatorios."
+                        return@Button
+                    }
+                    // Si no hay errores, actualizamos la reserva
                     val nuevaReserva = Reserva(
                         id = id.toIntOrNull() ?: 0,
                         sala = sala,
@@ -220,17 +231,27 @@ fun EditarReservaScreen(
                     viewModel.editarReserva(
                         id.toIntOrNull() ?: 0, nuevaReserva,
                         onSuccess = {
-                            Toast.makeText(contexto, "Reserva actualizada", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(contexto, "Reserva añadida", Toast.LENGTH_SHORT).show()
                             navController.popBackStack()
                         },
                         onError = {
-                            Toast.makeText(contexto, "Error al actualizar", Toast.LENGTH_SHORT).show()
+                            errorMessage = "Error al añadir"
                         }
                     )
                 },
                 modifier = Modifier.align(Alignment.CenterHorizontally) // Centrado
             ) {
                 Text("Actualizar Reserva")
+            }
+            // Si hay un error, lo mostramos
+            errorMessage?.let {
+                Text(
+                    text = it,
+                    color = Color.Red,
+                    modifier = Modifier
+                        .padding(top = 8.dp)
+                        .testTag("ErrorMessage")
+                )
             }
         }
     }
