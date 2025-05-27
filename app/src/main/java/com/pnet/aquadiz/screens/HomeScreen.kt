@@ -22,68 +22,48 @@ import com.pnet.aquadiz.ui.theme.azulOscuro
 
 @Composable
 fun HomeScreen(navController: NavController) {
-//    val azulClaro = Color(0xFFEBFFFF) // azul claro
-//    val azulOscuro = Color(0xFFA6E1F3) // azul oscuro
-
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(azulClaro)
             .padding(16.dp), // Opcional: Agrega padding para separar los elementos
+        // Centramos horizontalmente y verticalmente
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
 
-//        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Login",
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.Black
+        )
 
+        Spacer(modifier = Modifier.height(24.dp))
 
-//        Column(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = 24.dp),
-//            horizontalAlignment = Alignment.CenterHorizontally
-//        ) {
-            // Subtítulo
-            Text(
-                text = "Login",
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color.Black
-            )
+        // Logo
+        Image(
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "Logo",
+            modifier = Modifier.size(150.dp),
+            contentScale = ContentScale.Fit
+        )
 
-            Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-            // Logo
-            Image(
-                painter = painterResource(id = R.drawable.logo), // Reemplaza con tu imagen real
-                contentDescription = "Logo",
-                modifier = Modifier.size(150.dp),
-                contentScale = ContentScale.Fit
-            )
+        // Nombres
+        Text(text = "Cristian Heredia Bravo")
+        Text(text = "Rafael Pérez García")
 
-            Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
-            // Nombres
-            Text(text = "Cristian Heredia Bravo")
-            Text(text = "Rafael Pérez García")
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            // Botón
-            Button(
-                onClick = { navController.navigate("salas") },
-                shape = RoundedCornerShape(8.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = azulOscuro)
-            ) {
-                Text("Entrar", color = Color.Black)
-            }
-//        }
-
-//        Button(
-//            onClick = { navController.navigate("salas") },
-//            modifier = Modifier.padding(16.dp)
-//        ) {
-//            Text("Entrar")
-//        }
+        // Botón
+        Button(
+            onClick = { navController.navigate("salas") },
+            shape = RoundedCornerShape(8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = azulOscuro)
+        ) {
+            Text("Entrar", color = Color.Black)
+        }
     }
 }

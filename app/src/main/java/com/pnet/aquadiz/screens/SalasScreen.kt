@@ -39,7 +39,6 @@ fun SalasScreen() {
             caracteristicas = listOf("Capacidad de hasta 10 personas", "Burbujas controlables para cada sección"),
             instalaciones = listOf("Agua a 30ºC", "Bar de bebidas"),
             imagenResId = R.drawable.sala_hidromasaje,
-//            imagenPath = "/res/drawable/sala_hidromasaje.jpg"
         ),
         Sala(
             nombre = "Sala de baño turco",
@@ -47,7 +46,6 @@ fun SalasScreen() {
             caracteristicas = listOf("Disfruta de la sauna en solitario o acompañado", "Temperatura de 50ºC para una relajación total"),
             instalaciones = listOf("Asientos de madera de roble", "Dividido en salas comunes e individuales"),
             imagenResId =  R.drawable.bano_turco,
-//            imagenPath = "/res/drawable/bano_turco.jpg"
         )
     )
 
@@ -82,7 +80,6 @@ fun SalasScreen() {
 @Composable
 fun SalaCard (sala : Sala) {
     val context = LocalContext.current
-//    var expandido by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -111,38 +108,29 @@ fun SalaCard (sala : Sala) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-//            Button(
-//                onClick = { expandido = !expandido },
-//                shape = RoundedCornerShape(8.dp),
-//                colors = ButtonDefaults.buttonColors(containerColor = azulOscuro)
-//            ) {
-//                Text("Instalaciones", color = Color.Black)
-//            }
-//            if(expandido) {
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    Text(text = "Instalaciones",
-                        fontWeight = FontWeight.Bold,
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Instalaciones",
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)
+                        .background(azulOscuro)
+                        .padding(8.dp),
+                    color = Color.Black,
+                    textAlign = TextAlign.Center
+                )
+                sala.instalaciones.forEach {
+                    Text(
+                        text = it,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 4.dp)
-                            .background(azulOscuro)
+                            .background(Color.Gray)
                             .padding(8.dp),
                         color = Color.Black,
                         textAlign = TextAlign.Center
                     )
-                    sala.instalaciones.forEach {
-                        Text(
-                            text = it,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 4.dp)
-                                .background(Color.Gray)
-                                .padding(8.dp),
-                            color = Color.Black,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-//                }
+                }
             }
             Spacer(modifier = Modifier.height(8.dp))
 

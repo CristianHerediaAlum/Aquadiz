@@ -8,6 +8,5 @@ data class Sala(
     val caracteristicas : List<String>,
     val instalaciones : List<String>,
     val imagenResId : Int,
-//    val imagenPath : String? = null
 )
 
